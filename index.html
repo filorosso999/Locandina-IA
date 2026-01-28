@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corso IA - LUTE Milazzo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+        
+        .container {
+            background: white;
+            max-width: 800px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            line-height: 1.3;
+        }
+        
+        .header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+        
+        .header .organization {
+            font-size: 1em;
+            margin-top: 12px;
+            opacity: 0.9;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+        
+        .content {
+            padding: 25px 20px;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 1.05em;
+            line-height: 1.7;
+        }
+        
+        .intro p {
+            margin-bottom: 15px;
+        }
+        
+        .intro strong {
+            color: #667eea;
+        }
+        
+        .alert-box {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+        }
+        
+        .alert-box .icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .alert-box h3 {
+            font-size: 1.3em;
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+        
+        .alert-box p {
+            font-size: 1.05em;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+        
+        .modules {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .module-card {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+        }
+        
+        .module-card:active {
+            transform: scale(0.98);
+        }
+        
+        .module-card:hover {
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+            background: #ffffff;
+        }
+        
+        .module-card h3 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 8px;
+            font-weight: 400;
+            line-height: 1.3;
+            padding-right: 30px;
+        }
+        
+        .module-card p {
+            color: #666;
+            font-size: 1em;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        
+        .module-card .link {
+            color: #764ba2;
+            font-size: 0.85em;
+            word-break: break-all;
+            display: block;
+            margin-top: 8px;
+            line-height: 1.4;
+        }
+        
+        .module-card .arrow {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5em;
+            color: #667eea;
+            transition: transform 0.3s ease;
+        }
+        
+        .module-card:hover .arrow {
+            transform: translateX(3px);
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 25px 20px;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .footer .docente {
+            font-size: 1.1em;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .footer .nome-docente {
+            font-size: 1.6em;
+            color: #667eea;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+        
+        .footer .note {
+            font-size: 0.95em;
+            color: #666;
+            font-style: italic;
+            line-height: 1.6;
+        }
+        
+        /* Ottimizzazione per schermi molto piccoli */
+        @media (max-width: 400px) {
+            body {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 25px 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.7em;
+            }
+            
+            .header .subtitle {
+                font-size: 1em;
+            }
+            
+            .header .organization {
+                font-size: 0.9em;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+            
+            .intro {
+                font-size: 1em;
+            }
+            
+            .alert-box {
+                padding: 15px;
+            }
+            
+            .alert-box .icon {
+                font-size: 2em;
+            }
+            
+            .alert-box h3 {
+                font-size: 1.15em;
+            }
+            
+            .alert-box p {
+                font-size: 0.95em;
+            }
+            
+            .module-card {
+                padding: 15px;
+            }
+            
+            .module-card h3 {
+                font-size: 1.15em;
+            }
+            
+            .module-card p {
+                font-size: 0.95em;
+            }
+            
+            .module-card .link {
+                font-size: 0.8em;
+            }
+            
+            .module-card .arrow {
+                font-size: 1.3em;
+                top: 15px;
+                right: 15px;
+            }
+            
+            .footer {
+                padding: 20px 15px;
+            }
+            
+            .footer .nome-docente {
+                font-size: 1.4em;
+            }
+        }
+        
+        /* Tablet */
+        @media (min-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+            
+            .header .subtitle {
+                font-size: 1.3em;
+            }
+            
+            .header .organization {
+                font-size: 1.1em;
+            }
+            
+            .content {
+                padding: 40px 30px;
+            }
+            
+            .intro {
+                font-size: 1.2em;
+            }
+            
+            .alert-box h3 {
+                font-size: 1.5em;
+            }
+            
+            .alert-box p {
+                font-size: 1.1em;
+            }
+            
+            .module-card {
+                padding: 25px;
+            }
+            
+            .module-card h3 {
+                font-size: 1.6em;
+            }
+            
+            .module-card p {
+                font-size: 1.1em;
+            }
+            
+            .module-card .link {
+                font-size: 0.95em;
+            }
+            
+            .module-card:hover {
+                transform: translateX(10px);
+            }
+            
+            .footer {
+                padding: 30px;
+            }
+            
+            .footer .nome-docente {
+                font-size: 1.8em;
+            }
+            
+            .footer .note {
+                font-size: 1em;
+            }
+        }
+        
+        /* Touch feedback migliorato */
+        @media (hover: none) and (pointer: coarse) {
+            .module-card:active {
+                background: #e8f0fe;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Corso di Intelligenza Artificiale</h1>
+            <div class="subtitle">per la Terza Età</div>
+            <div class="organization">LUTE - Libera Università per la Terza Età<br>Milazzo</div>
+        </div>
+        
+        <div class="content">
+            <div class="intro">
+                <p><strong>Per chi ha partecipato alle prime lezioni:</strong><br>
+                Rivedete i contenuti quando volete</p>
+                <p><strong>Per chi non ha potuto partecipare:</strong><br>
+                Recuperate le lezioni perse</p>
+            </div>
+            
+            <div class="alert-box">
+                <div class="icon">✨</div>
+                <h3>È ancora possibile iscriversi!</h3>
+                <p>Puoi partecipare al corso anche se non hai seguito le prime due lezioni e anche se non sei ancora iscritto</p>
+            </div>
+            
+            <div class="modules">
+                <a href="https://filorosso999.github.io/Introduzione/" target="_blank" class="module-card">
+                    <h3>📚 Introduzione al Corso</h3>
+                    <p>Panoramica generale sul corso di Intelligenza Artificiale e presentazione degli obiettivi</p>
+                    <div class="link">🔗 filorosso999.github.io/Introduzione/</div>
+                    <span class="arrow">→</span>
+                </a>
+                
+                <a href="https://filorosso999.github.io/Modulo1IA/" target="_blank" class="module-card">
+                    <h3>🎯 Modulo 1 - L'IA è già tra noi</h3>
+                    <p>Scopriamo cos'è l'Intelligenza Artificiale e dove la usiamo già nella vita quotidiana</p>
+                    <div class="link">🔗 filorosso999.github.io/Modulo1IA/</div>
+                    <span class="arrow">→</span>
+                </a>
+                
+                <a href="https://filorosso999.github.io/Modulo-2-IA/" target="_blank" class="module-card">
+                    <h3>✍️ Modulo 2 - Il mio assistente personale</h3>
+                    <p>Impariamo a dare istruzioni efficaci all'IA e a scrivere testi con il suo aiuto</p>
+                    <div class="link">🔗 filorosso999.github.io/Modulo-2-IA/</div>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="docente">Docente</div>
+            <div class="nome-docente">Nuccio Russo</div>
+            <div class="note">
+                Clicca sui moduli per accedere ai contenuti<br>
+                I materiali sono sempre disponibili per ripassare e approfondire
+            </div>
+        </div>
+    </div>
+</body>
+</html>
